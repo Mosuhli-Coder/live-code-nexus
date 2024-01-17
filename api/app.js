@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import userRouter from './routes/user.route.js'
+
 dotenv.config();
 import path from 'path'
 
@@ -13,6 +15,9 @@ mongoose.connect(process.env.MONGO_DB).then(()=> {
 
 const __dirname = path.resolve();
 const app = express();
+app.use(express.json());
+
+app.use('/api/user', userRouter);
 
 
 
