@@ -1,5 +1,3 @@
-// Dashboard.jsx
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createWorkspace, joinWorkspace } from '../redux/actions/workspaceActions';
@@ -14,6 +12,7 @@ export default function CreateWorkspace() {
 
   const handleCreateWorkspace = () => {
     dispatch(createWorkspace(workspaceName, workspaceDescription, isPrivate));
+    console.log(workspaces);
   };
 
   const handleJoinWorkspace = (workspaceId) => {
@@ -22,7 +21,7 @@ export default function CreateWorkspace() {
 
   return (
     <div className="p-3 max-w-lg mx-auto">
-      <h1 className="text-3xl text-center font-semibold my-7">Collaborative Code Editor Dashboard</h1>
+      <h1 className="text-3xl text-center font-semibold my-7">Create Workspace</h1>
 
       {/* Workspace creation form */}
       <div className="mb-4">
