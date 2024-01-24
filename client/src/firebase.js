@@ -5,8 +5,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  //   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  apiKey: "AIzaSyBc3hx7FPvqO507Ip5zix2ESWsvEwLhf9E",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "live-code-nexus.firebaseapp.com",
   projectId: "live-code-nexus",
   storageBucket: "live-code-nexus.appspot.com",
