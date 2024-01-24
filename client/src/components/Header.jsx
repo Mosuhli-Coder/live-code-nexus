@@ -1,11 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOutUserFailure, signOutUserStart, signOutUserSuccess } from "../redux/user/userSlice";
+import {
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
+} from "../redux/user/userSlice";
+import { toggleProfileDropdown } from "../redux/actions/uiAction";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const isProfileDropdownOpen = useSelector(
+    (state) => state.ui.isProfileDropdownOpen
+  );
+
+  const handleProfileClick = () => {
+    dispatch(toggleProfileDropdown());
+  };
+
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
@@ -17,7 +30,7 @@ export default function Header() {
       }
       dispatch(signOutUserSuccess(data));
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch(signOutUserFailure(error.message));
     }
   };
@@ -36,38 +49,77 @@ export default function Header() {
             <li className="hidden sm:inline text-slate-700 hover:underline">
               Home
             </li>
-          </Link>          
+          </Link>
           <Link to="/dashboard">
             {currentUser ? (
               <li className="text-slate-700 hover:underline">Dashboard</li>
             ) : (
               ""
             )}
-          </Link>        
+          </Link>
           <Link to="/createworkspace">
             {currentUser ? (
-              <li className="text-slate-700 hover:underline">Create workspace</li>
+              <li className="text-slate-700 hover:underline">
+                Create workspace
+              </li>
             ) : (
               <li className="text-slate-700 hover:underline">Sign in</li>
             )}
           </Link>
-          <Link to="/sign-in">
-          {currentUser ? (
-            <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
-            Sign out
-          </span>
-            ) : (
-              ""
-            )}
-          </Link>
-          <Link to="/profile">
-            {currentUser ? (
-              <img className="rounded-full h-7 w-7 object-cover" src={currentUser.avatar} alt='profile' />
-            ) : (
-              ""
-            )}
 
-          </Link>
+          {/* <li className="text-slate-700 hover:underline relative"> */}
+            <div className="profile-icon" onClick={handleProfileClick}>
+              {currentUser ? (
+                <img
+                  className="rounded-full h-7 w-7 object-cover cursor-pointer"
+                  src={currentUser.avatar}
+                  alt="profile"
+                />
+              ) : (
+                ""
+              )}
+              {isProfileDropdownOpen && (
+                <div className="dropdown-menu absolute right-0 mt-2 bg-white border rounded-md shadow-md">
+                  {/* Your dropdown menu content */}
+                  <Link to="/profile">
+                    {currentUser ? (
+                      <p
+                        className="py-2 px-4 cursor-pointer hover:bg-gray-200"
+                      >
+                        Profile
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </Link>
+                  <Link to="/settings">
+                    {currentUser ? (
+                      <p
+                        className="py-2 px-4 cursor-pointer hover:bg-gray-200"
+                      >
+                        Settings
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </Link>
+                  <Link to="/sign-in">
+                    {currentUser ? (
+                      <span
+                        onClick={handleSignOut}
+                        className=" py-2 px-4 text-red-700 cursor-pointer"
+                      >
+                        Logout
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </Link>
+                  {/* Add more menu items as needed */}
+                </div>
+              )}
+            </div>
+          {/* </li> */}
         </ul>
       </div>
     </header>
