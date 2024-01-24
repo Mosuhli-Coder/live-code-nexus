@@ -37,6 +37,13 @@ export default function Header() {
               Home
             </li>
           </Link>          
+          <Link to="/dashboard">
+            {currentUser ? (
+              <li className="text-slate-700 hover:underline">Dashboard</li>
+            ) : (
+              ""
+            )}
+          </Link>        
           <Link to="/createworkspace">
             {currentUser ? (
               <li className="text-slate-700 hover:underline">Create workspace</li>
