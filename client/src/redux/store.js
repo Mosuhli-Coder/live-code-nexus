@@ -3,9 +3,13 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import userReducer from "./user/userSlice";
 import uiReducer from "./user/uiReducers";
-import workspaceRootReducer from "./workspaceRootReducer";
+import  workspaceReducer  from "./user/workspaceSlice";
 
-const rootReducer = combineReducers({ user: userReducer, ui: uiReducer });
+const rootReducer = combineReducers({
+  user: userReducer,
+  ui: uiReducer,
+  workspaces: workspaceReducer,
+});
 
 const persistConfig = {
   key: "root",
@@ -21,9 +25,5 @@ export const store = configureStore({
       serializableCheck: false,
     }),
 });
-const workspaceStore = configureStore({
-  reducer: rootReducer,
-});
 
 export const persistor = persistStore(store);
-export default workspaceStore;
