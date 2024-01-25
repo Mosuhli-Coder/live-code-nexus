@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
+import workspaceRouter from './routes/workspace.route.js'
 
 dotenv.config();
 import path from 'path'
@@ -22,6 +23,7 @@ app.use(cookieParser())
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/workspace', workspaceRouter)
 
 
 app.use(express.static(path.join(__dirname, '/client/dist')));
